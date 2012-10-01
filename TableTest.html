@@ -243,6 +243,8 @@ offset = function( selectionBounds,x,y )
     selectionBounds.bottom += y
 }
 
+showTDOutlines = true
+
 onResize = function()
 {
     tablePaper.clear()
@@ -260,13 +262,13 @@ onResize = function()
         startSelection = startSelection.add( "#mainTable tr:nth-child(8) td:nth-child(3)" )
         startSelectionBounds = startSelection.bounds()
         offset(startSelectionBounds, -tableX, -tableY)
-        drawHighlight( startSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
         endSelection = $("#mainTable tr:nth-child(3) td:nth-child(8)")
         endSelection = endSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
-        drawHighlight( endSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
 
         drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "orange", "orange" )
     }
@@ -276,12 +278,12 @@ onResize = function()
         startSelection = $("#mainTable tr:nth-child(5) td:nth-child(4)")
         startSelectionBounds = startSelection.bounds()
         offset(startSelectionBounds, -tableX, -tableY)
-        drawHighlight( startSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
         endSelection = $("#mainTable tr:nth-child(8) td:nth-child(5)")
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
-        drawHighlight( endSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
 
         drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "magenta", "magenta" )
     }
@@ -291,12 +293,12 @@ onResize = function()
         startSelection = $("#mainTable tr:nth-child(7) td:nth-child(8)")
         startSelectionBounds = startSelection.bounds()
         offset(startSelectionBounds, -tableX, -tableY)
-        drawHighlight( startSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
         endSelection = $("#mainTable tr:nth-child(8) td:nth-child(6)")
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
-        drawHighlight( endSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
 
         drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "yellow", "yellow" )
     }
@@ -306,12 +308,12 @@ onResize = function()
         startSelection = $("#mainTable tr:nth-child(6) td:nth-child(8)")
         startSelectionBounds = startSelection.bounds()
         offset(startSelectionBounds, -tableX, -tableY)
-        drawHighlight( startSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
         endSelection = $("#mainTable tr:nth-child(5) td:nth-child(5)")
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
-        drawHighlight( endSelectionBounds, tablePaper )
+        if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
 
         drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "blue", "blue" )
     }
@@ -319,6 +321,26 @@ onResize = function()
 }
 
 $(window).resize(onResize);
+
+onKeyPress = function(event)
+{
+    //console.log(event)
+
+    showTDOutlines = !showTDOutlines
+
+    if ( showTDOutlines )
+    {
+        $("td").css("border", "1px dotted #FFF")
+    }
+    else
+    {
+        $("td").css("border", "0px")
+    }
+
+    onResize()
+}
+
+$(window).keypress(onKeyPress);
 
 drawSwoop = function(tablePaper, startSelectionBounds, endSelectionBounds, strokeColor, fillColor)
 {
