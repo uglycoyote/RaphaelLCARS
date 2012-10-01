@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TableTest</title>
+<link rel="stylesheet" href="demo.css" type="text/css" media="screen">
+<script src="raphael.js"></script>
+<script src="jquery.js"></script>
+</head>
+<style>
+#paperContainer{
+  width : 100% ;
+  height:0px;
+  top:0;
+  left:0;
+  position:absolute;
+                 }
+
+#mainTable{
+                   width : 100% ;
+                   }
+
+table{
+    border: 1px dotted #FFF;
+    border-collapse:separate;
+    border-spacing:10px 10px;
+}
+
+td{
+    border: 1px dotted #FFF;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 10px;
+    color: white;
+}
+
+
+</style>
+<body>
+
+<div id="paperContainer"></div>
+
+<div id="mainTable">
+<table class="mainTable" border=0>
+<tr>
+<td class="ColumnHeader">pc-build</td>
+<td class="ColumnHeader">ds-build</td>
+<td class="ColumnHeader">wiiu-build</td>
+<tr>
+
+
+
+<tr>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevRev " width="1%">
+      59
+    </td>
+<td class="DevDate " width="1%">
+      Wed 23:15
+    </td>
+<td class="DevName " width="1%">
+      mike
+    </td>
+<td class="DevComment ">
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+    </td>
+<td class="DevFiles ">
+      test.xmb
+    </td>
+</tr>
+<tr>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevRev " width="1%">
+      59
+    </td>
+<td class="DevDate " width="1%">
+      Wed 23:15
+    </td>
+<td class="DevName " width="1%">
+      mike
+    </td>
+<td class="DevComment ">
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.       Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+
+    </td>
+<td class="DevFiles ">
+      test.xmb
+    </td>
+</tr>
+<tr>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevRev " width="1%">
+      59
+    </td>
+<td class="DevDate " width="1%">
+      Wed 23:15
+    </td>
+<td class="DevName " width="1%">
+      mike
+    </td>
+<td class="DevComment ">
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+    </td>
+<td class="DevFiles ">
+      test.xmb
+    </td>
+</tr>
+<tr>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevRev " width="1%">
+      59
+    </td>
+<td class="DevDate " width="1%">
+      Wed 23:15
+    </td>
+<td class="DevName " width="1%">
+      mike
+    </td>
+<td class="DevComment ">
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.       Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+    </td>
+<td class="DevFiles ">
+      test.xmb
+    </td>
+</tr>
+<tr>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevRev " width="1%">
+      59
+    </td>
+<td class="DevDate " width="1%">
+      Wed 23:15
+    </td>
+<td class="DevName " width="1%">
+      mike
+    </td>
+<td class="DevComment ">
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+    </td>
+<td class="DevFiles ">
+      test.xmb
+    </td>
+</tr>
+<tr>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
+<td class="DevRev " width="1%">
+      59
+    </td>
+<td class="DevDate " width="1%">
+      Wed 23:15
+    </td>
+<td class="DevName " width="1%">
+      mike
+    </td>
+<td class="DevComment ">
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.       Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+
+      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
+    </td>
+<td class="DevFiles ">
+      test.xmb
+    </td>
+</tr>
+</table>
+</div>
+</body>
+
+<script>
+
+(function() {jQuery.fn['bounds'] = function () {
+    var bounds = {
+        left: Number.POSITIVE_INFINITY,
+        top: Number.POSITIVE_INFINITY,
+        right: Number.NEGATIVE_INFINITY,
+        bottom: Number.NEGATIVE_INFINITY,
+        width: Number.NaN,
+        height: Number.NaN
+    };
+
+    this.each(function (i,el) {
+        var elQ = $(el);
+        var off = elQ.offset();
+        off.right = off.left + $(elQ).outerWidth();
+        off.bottom = off.top + $(elQ).outerHeight();
+
+        if (off.left < bounds.left)
+        bounds.left = off.left;
+
+        if (off.top < bounds.top)
+        bounds.top = off.top;
+
+        if (off.right > bounds.right)
+        bounds.right = off.right;
+
+        if (off.bottom > bounds.bottom)
+        bounds.bottom = off.bottom;
+    });
+
+    bounds.width = bounds.right - bounds.left;
+    bounds.height = bounds.bottom - bounds.top;
+    return bounds;
+}})();
+
+var paperContainer = $("#paperContainer")
+var tableContainer = $("#mainTable")
+
+mainTable = $("#mainTable")
+mainTableBounds = mainTable.bounds()
+tableWidth = mainTableBounds.width;
+tableHeight = mainTableBounds.height;
+
+var tablePaper = Raphael(mainTableBounds.left, mainTableBounds.top, tableWidth, tableHeight);
+tablePaper.canvas.style.zIndex = -1;  // using negative number here makes Raphael canvas appear underneath HTML table.  Note: must specify absolute positioning in the Div for the paper for this to work.
+
+$.fn.row = function(i) {
+    return $('tr:nth-child('+(i+1)+') td', this);
+}
+$.fn.column = function(i) {
+    return $('tr td:nth-child('+(i+1)+')', this);
+}
+
+offset = function( selectionBounds,x,y )
+{
+    selectionBounds.left += x
+    selectionBounds.top += y
+    selectionBounds.right += x
+    selectionBounds.bottom += y
+}
+
+onResize = function()
+{
+    tablePaper.clear()
+    mainTable = $("#mainTable")
+    mainTableBounds = mainTable.bounds()
+    tableWidth = mainTableBounds.width;
+    tableHeight = mainTableBounds.height;
+    tableX = mainTableBounds.left;
+    tableY = mainTableBounds.top;
+    tablePaper.setSize(tableWidth, tableHeight);
+
+    var bottomSelection = $("#mainTable tr:nth-child(8) td:nth-child(2)")
+    bottomSelection = bottomSelection.add( "#mainTable tr:nth-child(8) td:nth-child(3)" )
+    bottomSelectionBounds = bottomSelection.bounds()
+    offset(bottomSelectionBounds, -tableX, -tableY)
+    drawHighlight( bottomSelectionBounds, tablePaper )
+
+    var topSelection = $("#mainTable tr:nth-child(3) td:nth-child(8)")
+    topSelection = topSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
+    topSelectionBounds = topSelection.bounds()
+    offset(topSelectionBounds, -tableX, -tableY)
+    drawHighlight( topSelectionBounds, tablePaper )
+
+    drawSwoop( tablePaper, bottomSelectionBounds, topSelectionBounds )
+
+    bottomSelection = $("#mainTable tr:nth-child(8) td:nth-child(4)")
+    //bottomSelection = bottomSelection.add( "#mainTable tr:nth-child(8) td:nth-child(3)" )
+    bottomSelectionBounds = bottomSelection.bounds()
+    offset(bottomSelectionBounds, -tableX, -tableY)
+    drawHighlight( bottomSelectionBounds, tablePaper )
+
+    topSelection = $("#mainTable tr:nth-child(5) td:nth-child(8)")
+    //topSelection = topSelection.add( "#mainTable tr:nth-child(4) td:nth-child(7)" )
+    topSelectionBounds = topSelection.bounds()
+    offset(topSelectionBounds, -tableX, -tableY)
+    drawHighlight( topSelectionBounds, tablePaper )
+
+    drawSwoop( tablePaper, bottomSelectionBounds, topSelectionBounds )
+
+    //drawBezierSwoop( tablePaper, bottomSelectionBounds, topSelectionBounds )
+
+    //tablePaper.path( MoveTo(0,0) + LineTo(tableWidth, tableHeight) ).attr({stroke: "red", opacity: 1, "stroke-width" : 2})
+    
+
+    //tablePaper.path( MoveTo(selectionBounds.left,selectionBounds.top) + LineTo(selectionBounds.right, selectionBounds.bottom) ).attr({stroke: "#0F0", opacity: 1, "stroke-width" : 2})
+
+}
+
+$(window).resize(onResize);
+
+drawSwoop = function(tablePaper, bottomSelectionBounds, topSelectionBounds)
+{
+    t1 = bottomSelectionBounds.width  // horizontal thickness at bottom
+    t2 = topSelectionBounds.height  // vertical thickness, also font size
+    r1 = t2 // radius of upper curve
+    r2 = 15 // radius of lower curve
+    leftX = bottomSelectionBounds.left
+    rightX = topSelectionBounds.right // right edge of swoop
+    bottomY = bottomSelectionBounds.bottom
+    topY = topSelectionBounds.top
+    margin = 0
+
+    strokeColor = "#F80"
+    fillColor = "#B60"
+
+    path = ""
+
+    path += MoveTo( leftX, bottomY ) // lower left
+    path += LineTo( leftX,topY+r1 ) // head upwards
+
+    // wide arc around top left
+    path += ArcTo( 
+        r1,r1,0, // radius, tilt
+        0,1, //flags
+        leftX+r1,topY // end
+        ) 
+
+    // head to the right, until text
+    path += LineTo( rightX, topY )
+    // go down
+    path += LineTo( rightX, topY+t2 )
+
+    // back left
+    path += LineTo( leftX+t1+r2, topY+t2 )
+
+    // smaller inside arc
+    path += ArcTo(
+        r2,r2,0, // radius, tilt
+        0,0, //flags
+        leftX+t1,topY+t2+r2 // end
+        ) 
+
+    // head down
+    path += LineTo( leftX+t1, bottomY )
+
+    // back to where we started
+    path += LineTo( leftX, bottomY )
+
+    tablePaper.path( path ).attr({stroke: strokeColor, fill: fillColor, opacity: 0.5, "stroke-width" : 2})
+
+    var r3 = t2/3 // radius used to round off square block
+
+}
+
+drawBezierSwoop = function(tablePaper, bottomSelectionBounds, topSelectionBounds)
+{
+    leftX = bottomSelectionBounds.left
+    rightX = topSelectionBounds.right // right edge of swoop
+    bottomY = bottomSelectionBounds.bottom
+    topY = topSelectionBounds.top
+    t1 = bottomSelectionBounds.width  // horizontal thickness at bottom
+    t2 = topSelectionBounds.height  // vertical thickness, also font size
+
+    fillColor = "#F00"
+
+    path = ""
+
+    path += MoveTo( leftX, bottomY ) // lower left
+    path += BezierTo( leftX, (bottomY+topY)/2, (leftX+rightX)/2, topY, rightX, topY )
+    path += LineTo  ( rightX, topY + t2 )
+    path += BezierTo( (leftX+t1+rightX)/2, topY+t2, (leftX+t1), (bottomY+topY+t2)/2, leftX+t1, bottomY )
+    path += LineTo( leftX, bottomY )
+
+    tablePaper.path( path ).attr({stroke: strokeColor, fill: fillColor, opacity: 0.5, "stroke-width" : 2})
+
+}
+
+drawHighlight = function(selectionBounds,paper)
+{
+
+    strokeColor = "#8F0"
+    fillColor = "#6B0"
+
+    // square block on the right of the text
+    path = ""
+    path += MoveTo( selectionBounds.left, selectionBounds.top )
+    path += LineTo( selectionBounds.right, selectionBounds.top )
+    path += LineTo( selectionBounds.right, selectionBounds.bottom )
+    path += LineTo( selectionBounds.left, selectionBounds.bottom )
+    path += LineTo( selectionBounds.left, selectionBounds.top )
+    paper.path( path ).attr({stroke: strokeColor, fill: fillColor, opacity: 0.3, "stroke-width" : 2})
+
+}
+
+Coord = function( x,y )
+{
+    return x + "," + y + " " 
+}
+
+MoveTo = function( x,y )
+{
+    return CoordCommand( "M", x,y )
+}
+
+LineTo = function ( x,y )
+{
+    return CoordCommand( "L", x,y )
+}
+
+// http://www.w3.org/TR/SVG/paths.html#PathDataEllipticalArcCommands
+ArcTo = function( rx, ry, xRot, largeArcFlag, sweepFlag, toX, toY )
+{
+    return " A " + rx + " " + ry + " " + xRot + " " + largeArcFlag + " " + sweepFlag + " " + toX + " " + toY    
+}
+
+BezierTo = function( c1x, c1y, c2x, c2y, toX, toY )
+{
+    return " C " + c1x + " " + c1y + " " + c2x + " " + c2y + " " + toX + " " + toY    
+}
+
+CoordCommand = function( command, x,y )
+{
+    var pathString = command + " " + Coord(x,y)
+    return pathString
+};
+
+onResize()
+//drawSwoop(tablePaper)
+
+
+
+</script>
+
+
+</html>
