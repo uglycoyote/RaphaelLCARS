@@ -254,92 +254,139 @@ onResize = function()
     tableY = mainTableBounds.top;
     tablePaper.setSize(tableWidth, tableHeight);
 
-    var bottomSelection = $("#mainTable tr:nth-child(8) td:nth-child(2)")
-    bottomSelection = bottomSelection.add( "#mainTable tr:nth-child(8) td:nth-child(3)" )
-    bottomSelectionBounds = bottomSelection.bounds()
-    offset(bottomSelectionBounds, -tableX, -tableY)
-    drawHighlight( bottomSelectionBounds, tablePaper )
+    // SW to NE
+    {
+        startSelection = $("#mainTable tr:nth-child(8) td:nth-child(2)")
+        startSelection = startSelection.add( "#mainTable tr:nth-child(8) td:nth-child(3)" )
+        startSelectionBounds = startSelection.bounds()
+        offset(startSelectionBounds, -tableX, -tableY)
+        drawHighlight( startSelectionBounds, tablePaper )
 
-    var topSelection = $("#mainTable tr:nth-child(3) td:nth-child(8)")
-    topSelection = topSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
-    topSelectionBounds = topSelection.bounds()
-    offset(topSelectionBounds, -tableX, -tableY)
-    drawHighlight( topSelectionBounds, tablePaper )
+        endSelection = $("#mainTable tr:nth-child(3) td:nth-child(8)")
+        endSelection = endSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
+        endSelectionBounds = endSelection.bounds()
+        offset(endSelectionBounds, -tableX, -tableY)
+        drawHighlight( endSelectionBounds, tablePaper )
 
-    drawSwoop( tablePaper, bottomSelectionBounds, topSelectionBounds )
-
-    bottomSelection = $("#mainTable tr:nth-child(8) td:nth-child(4)")
-    //bottomSelection = bottomSelection.add( "#mainTable tr:nth-child(8) td:nth-child(3)" )
-    bottomSelectionBounds = bottomSelection.bounds()
-    offset(bottomSelectionBounds, -tableX, -tableY)
-    drawHighlight( bottomSelectionBounds, tablePaper )
-
-    topSelection = $("#mainTable tr:nth-child(5) td:nth-child(8)")
-    //topSelection = topSelection.add( "#mainTable tr:nth-child(4) td:nth-child(7)" )
-    topSelectionBounds = topSelection.bounds()
-    offset(topSelectionBounds, -tableX, -tableY)
-    drawHighlight( topSelectionBounds, tablePaper )
-
-    drawSwoop( tablePaper, bottomSelectionBounds, topSelectionBounds )
-
-    //drawBezierSwoop( tablePaper, bottomSelectionBounds, topSelectionBounds )
-
-    //tablePaper.path( MoveTo(0,0) + LineTo(tableWidth, tableHeight) ).attr({stroke: "red", opacity: 1, "stroke-width" : 2})
+        drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "orange", "orange" )
+    }
     
+    // NW to SE
+    {
+        startSelection = $("#mainTable tr:nth-child(5) td:nth-child(4)")
+        startSelectionBounds = startSelection.bounds()
+        offset(startSelectionBounds, -tableX, -tableY)
+        drawHighlight( startSelectionBounds, tablePaper )
 
-    //tablePaper.path( MoveTo(selectionBounds.left,selectionBounds.top) + LineTo(selectionBounds.right, selectionBounds.bottom) ).attr({stroke: "#0F0", opacity: 1, "stroke-width" : 2})
+        endSelection = $("#mainTable tr:nth-child(8) td:nth-child(5)")
+        endSelectionBounds = endSelection.bounds()
+        offset(endSelectionBounds, -tableX, -tableY)
+        drawHighlight( endSelectionBounds, tablePaper )
+
+        drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "magenta", "magenta" )
+    }
+
+    // NE to SW
+    {
+        startSelection = $("#mainTable tr:nth-child(7) td:nth-child(8)")
+        startSelectionBounds = startSelection.bounds()
+        offset(startSelectionBounds, -tableX, -tableY)
+        drawHighlight( startSelectionBounds, tablePaper )
+
+        endSelection = $("#mainTable tr:nth-child(8) td:nth-child(6)")
+        endSelectionBounds = endSelection.bounds()
+        offset(endSelectionBounds, -tableX, -tableY)
+        drawHighlight( endSelectionBounds, tablePaper )
+
+        drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "yellow", "yellow" )
+    }
+
+    // SE to NW
+    {
+        startSelection = $("#mainTable tr:nth-child(6) td:nth-child(8)")
+        startSelectionBounds = startSelection.bounds()
+        offset(startSelectionBounds, -tableX, -tableY)
+        drawHighlight( startSelectionBounds, tablePaper )
+
+        endSelection = $("#mainTable tr:nth-child(5) td:nth-child(5)")
+        endSelectionBounds = endSelection.bounds()
+        offset(endSelectionBounds, -tableX, -tableY)
+        drawHighlight( endSelectionBounds, tablePaper )
+
+        drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "blue", "blue" )
+    }
 
 }
 
 $(window).resize(onResize);
 
-drawSwoop = function(tablePaper, bottomSelectionBounds, topSelectionBounds)
+drawSwoop = function(tablePaper, startSelectionBounds, endSelectionBounds, strokeColor, fillColor)
 {
-    t1 = bottomSelectionBounds.width  // horizontal thickness at bottom
-    t2 = topSelectionBounds.height  // vertical thickness, also font size
-    r1 = t2 // radius of upper curve
-    r2 = 15 // radius of lower curve
-    leftX = bottomSelectionBounds.left
-    rightX = topSelectionBounds.right // right edge of swoop
-    bottomY = bottomSelectionBounds.bottom
-    topY = topSelectionBounds.top
-    margin = 0
 
-    strokeColor = "#F80"
-    fillColor = "#B60"
+    xDirection = ( startSelectionBounds.right < endSelectionBounds.left ) ? 1 : -1
+    yDirection = ( startSelectionBounds.bottom < endSelectionBounds.top ) ? 1 : -1
+
+    t1 = startSelectionBounds.width  // horizontal thickness of the vertical portion 
+    t2 = endSelectionBounds.height  // vertical thickness of the horizontal portion
+    r1 = t2 // radius of outer curve
+    r2 = 15 // radius of inner curve
+    
+    if ( xDirection == -1 )
+    {
+        startX = startSelectionBounds.right
+        endX = endSelectionBounds.left 
+    }
+    else
+    {
+        startX = startSelectionBounds.left
+        endX = endSelectionBounds.right 
+    }
+
+    if ( yDirection == -1 )
+    {
+        startY = startSelectionBounds.bottom
+        endY = endSelectionBounds.top
+    }
+    else
+    {
+        startY = startSelectionBounds.top
+        endY = endSelectionBounds.bottom
+    }
 
     path = ""
 
-    path += MoveTo( leftX, bottomY ) // lower left
-    path += LineTo( leftX,topY+r1 ) // head upwards
+    // comments are written with a swoop going from SW to NE in mind.
+
+    path += MoveTo( startX, startY ) // lower left
+    path += LineTo( startX,endY-(r1*yDirection) ) // head upwards
 
     // wide arc around top left
     path += ArcTo( 
         r1,r1,0, // radius, tilt
-        0,1, //flags
-        leftX+r1,topY // end
+        0,xDirection*yDirection>0?0:1, //flags
+        startX+r1*xDirection,endY // end
         ) 
 
-    // head to the right, until text
-    path += LineTo( rightX, topY )
+    // head to the right, until endX
+    path += LineTo( endX, endY )
     // go down
-    path += LineTo( rightX, topY+t2 )
+    path += LineTo( endX, endY-t2*yDirection )
 
     // back left
-    path += LineTo( leftX+t1+r2, topY+t2 )
+    path += LineTo( startX+(t1+r2)*xDirection, endY-t2*yDirection )
 
     // smaller inside arc
     path += ArcTo(
         r2,r2,0, // radius, tilt
-        0,0, //flags
-        leftX+t1,topY+t2+r2 // end
+        0,xDirection*yDirection>0?1:0, //flags
+        startX+t1*xDirection,endY-((t2+r2)*yDirection) // end
         ) 
 
     // head down
-    path += LineTo( leftX+t1, bottomY )
+    path += LineTo( startX+t1*xDirection, startY )
 
     // back to where we started
-    path += LineTo( leftX, bottomY )
+    path += LineTo( startX, startY )
 
     tablePaper.path( path ).attr({stroke: strokeColor, fill: fillColor, opacity: 0.5, "stroke-width" : 2})
 
@@ -347,34 +394,12 @@ drawSwoop = function(tablePaper, bottomSelectionBounds, topSelectionBounds)
 
 }
 
-drawBezierSwoop = function(tablePaper, bottomSelectionBounds, topSelectionBounds)
-{
-    leftX = bottomSelectionBounds.left
-    rightX = topSelectionBounds.right // right edge of swoop
-    bottomY = bottomSelectionBounds.bottom
-    topY = topSelectionBounds.top
-    t1 = bottomSelectionBounds.width  // horizontal thickness at bottom
-    t2 = topSelectionBounds.height  // vertical thickness, also font size
-
-    fillColor = "#F00"
-
-    path = ""
-
-    path += MoveTo( leftX, bottomY ) // lower left
-    path += BezierTo( leftX, (bottomY+topY)/2, (leftX+rightX)/2, topY, rightX, topY )
-    path += LineTo  ( rightX, topY + t2 )
-    path += BezierTo( (leftX+t1+rightX)/2, topY+t2, (leftX+t1), (bottomY+topY+t2)/2, leftX+t1, bottomY )
-    path += LineTo( leftX, bottomY )
-
-    tablePaper.path( path ).attr({stroke: strokeColor, fill: fillColor, opacity: 0.5, "stroke-width" : 2})
-
-}
 
 drawHighlight = function(selectionBounds,paper)
 {
 
-    strokeColor = "#8F0"
-    fillColor = "#6B0"
+    strokeColor = "#FFF"
+    fillColor = "#FFF"
 
     // square block on the right of the text
     path = ""
