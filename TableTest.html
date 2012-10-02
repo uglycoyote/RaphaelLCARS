@@ -5,7 +5,9 @@
 <title>TableTest</title>
 <link rel="stylesheet" href="demo.css" type="text/css" media="screen">
 <script src="raphael.js"></script>
-<script src="jquery.js"></script>
+<script src="jquery-1.8.2.min.js"></script>
+<script src="jquery-ui-1.8.24.custom.min.js"></script>
+
 </head>
 <style>
 #paperContainer{
@@ -28,6 +30,21 @@ table{
 
 td{
     border: 1px dotted #FFF;
+    padding: 0px;
+    margin: 0px;
+}
+
+td.standard{
+    width: 50px;
+    height :50px;
+    white-space: nowrap;
+}
+
+td.BigTitle
+{
+    font-family: Impact;
+    font-size: 50px;
+    overflow:hidden;
 }
 
 body {
@@ -36,150 +53,34 @@ body {
     color: white;
 }
 
+.reddot { width: 10px; height: 10px; padding: 0px; float: left; margin: 0 0px 0px 0; position: absolute }
 
 </style>
 <body>
 
 <div id="paperContainer"></div>
 
-<div id="mainTable">
-<table class="mainTable" border=0>
+<div id="mainTable"><table class="mainTable" border=0>
 <tr>
-<td class="ColumnHeader">pc-build</td>
-<td class="ColumnHeader">ds-build</td>
-<td class="ColumnHeader">wiiu-build</td>
-<tr>
-
-
-
-<tr>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevRev " width="1%">
-      59
-    </td>
-<td class="DevDate " width="1%">
-      Wed 23:15
-    </td>
-<td class="DevName " width="1%">
-      mike
-    </td>
-<td class="DevComment ">
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-    </td>
-<td class="DevFiles ">
-      test.xmb
-    </td>
-</tr>
-<tr>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevRev " width="1%">
-      59
-    </td>
-<td class="DevDate " width="1%">
-      Wed 23:15
-    </td>
-<td class="DevName " width="1%">
-      mike
-    </td>
-<td class="DevComment ">
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.       Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-
-    </td>
-<td class="DevFiles ">
-      test.xmb
-    </td>
-</tr>
-<tr>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevRev " width="1%">
-      59
-    </td>
-<td class="DevDate " width="1%">
-      Wed 23:15
-    </td>
-<td class="DevName " width="1%">
-      mike
-    </td>
-<td class="DevComment ">
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-    </td>
-<td class="DevFiles ">
-      test.xmb
-    </td>
-</tr>
-<tr>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevRev " width="1%">
-      59
-    </td>
-<td class="DevDate " width="1%">
-      Wed 23:15
-    </td>
-<td class="DevName " width="1%">
-      mike
-    </td>
-<td class="DevComment ">
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.       Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-    </td>
-<td class="DevFiles ">
-      test.xmb
-    </td>
-</tr>
-<tr>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevRev " width="1%">
-      59
-    </td>
-<td class="DevDate " width="1%">
-      Wed 23:15
-    </td>
-<td class="DevName " width="1%">
-      mike
-    </td>
-<td class="DevComment ">
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-    </td>
-<td class="DevFiles ">
-      test.xmb
-    </td>
-</tr>
-<tr>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevStatusBox"><a class="DevStatusBox success"></a></td>
-<td class="DevRev " width="1%">
-      59
-    </td>
-<td class="DevDate " width="1%">
-      Wed 23:15
-    </td>
-<td class="DevName " width="1%">
-      mike
-    </td>
-<td class="DevComment ">
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.       Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-
-      Follow the yellow brick road. Follow Follow,  Were off to see the wizard the wonderful wizard of oz, because because of the wonderful things she does.
-    </td>
-<td class="DevFiles ">
-      test.xmb
-    </td>
 </tr>
 </table>
 </div>
+
+<div id="reddot" class="reddot ui-widget-content">
+<svg>
+  <circle class="reddot" cx="5" cy="5" r="4" fill="red"/>
+</svg> 
+</div>
+
 </body>
+
+<style>
+</style>
+    <script>
+    $(function() {
+        $( "#reddot" ).draggable({ axis: "x" });
+    });
+    </script>
 
 <script>
 
@@ -217,6 +118,99 @@ body {
     return bounds;
 }})();
 
+updateRedDots = function( rows, columns )
+{
+    for ( column=1; column<=columns; column++ )
+    {
+        reddot = $("#reddotColumn"+column)
+        cell = getMainTableElement(2,column)
+        columnOffset = cell.offset().left
+        dotOffset = columnOffset - halfDotWidth
+        reddot.offset({left: dotOffset, top:top})
+    }
+}
+
+createRedDots = function( rows, columns )
+{
+    halfDotWidth = $("#reddot").width() / 2
+
+    for ( column=1; column<=columns; column++ )
+    {
+        top = $("#reddot").offset().top
+        clone = $("#reddot").clone().insertAfter("#reddot")
+        clone.attr( "id", "reddotColumn" + column )
+        
+        cell = getMainTableElement(2,column)
+        columnOffset = cell.offset().left
+        dotOffset = columnOffset - halfDotWidth
+        clone.offset({left: dotOffset, top:top})
+        clone.draggable({ axis: "x" });
+
+        onDrag = function(columnIndex, reddot)
+            {
+                return function(event, ui)
+                {
+                    for ( row=2; row<2+rows; row++ )
+                    {
+                        prevCell=getMainTableElement(row,columnIndex-1)
+                        prevColumnOffset = prevCell.offset().left
+                        prevCellRight = prevColumnOffset + prevCell.width()
+
+                        currCell=getMainTableElement(row,columnIndex)
+                        currCellOffset = currCell.offset().left
+                        gapBetweenCells = currCellOffset - prevCellRight
+
+                        dotOffset = reddot.offset().left
+                        columnOffset = dotOffset + halfDotWidth
+                        desiredWidth = columnOffset - prevColumnOffset - gapBetweenCells
+                        //console.log(gapBetweenCells)
+                        prevCell.width(desiredWidth)    
+                    }
+
+                    updateRedDots(rows,columns)
+
+                }
+            }
+
+        clone.bind("drag", 
+            onDrag(column, clone)
+            )
+
+        onFinishedDragging = function(event,ui)
+        {
+            updateRedDots(rows,columns)
+            onResize()
+        }
+
+        clone.bind("dragstop", 
+            onFinishedDragging
+            )
+
+    }
+
+
+    $("#reddot").remove()
+}
+
+populateTable = function( rows, columns )
+{
+    html = ""
+    for ( row=0; row<rows; row++ )
+    {
+        html += "<tr>"
+        for ( column=0; column<columns; column++ )
+        {
+            html += "<td class='standard'></td>";
+
+        }
+        html += "</tr>"
+
+    }
+
+    $('#mainTable tr:last').after(html);
+}
+
+
 var paperContainer = $("#paperContainer")
 var tableContainer = $("#mainTable")
 
@@ -233,6 +227,11 @@ $.fn.row = function(i) {
 }
 $.fn.column = function(i) {
     return $('tr td:nth-child('+(i+1)+')', this);
+}
+
+getMainTableElement = function( row, column )
+{
+    return $("#mainTable tr:nth-child(" + row + ") td:nth-child(" + column + ")")
 }
 
 offset = function( selectionBounds,x,y )
@@ -256,6 +255,12 @@ onResize = function()
     tableY = mainTableBounds.top;
     tablePaper.setSize(tableWidth, tableHeight);
 
+    titleCell = getMainTableElement(3,6)
+    titleCell.html("TITLE")
+    titleCell.addClass("BigTitle")
+    titleCell.css( "height", "30px" )
+    titleCell.css( "color", "orange" )
+
     // SW to NE
     {
         startSelection = $("#mainTable tr:nth-child(8) td:nth-child(2)")
@@ -264,8 +269,8 @@ onResize = function()
         offset(startSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
-        endSelection = $("#mainTable tr:nth-child(3) td:nth-child(8)")
-        endSelection = endSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
+        endSelection = $("#mainTable tr:nth-child(3) td:nth-child(5)")
+        //endSelection = endSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
@@ -275,7 +280,7 @@ onResize = function()
     
     // NW to SE
     {
-        startSelection = $("#mainTable tr:nth-child(5) td:nth-child(4)")
+        startSelection = $("#mainTable tr:nth-child(4) td:nth-child(4)")
         startSelectionBounds = startSelection.bounds()
         offset(startSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
@@ -310,12 +315,12 @@ onResize = function()
         offset(startSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
-        endSelection = $("#mainTable tr:nth-child(5) td:nth-child(5)")
+        endSelection = $("#mainTable tr:nth-child(3) td:nth-child(7)")
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
 
-        drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "blue", "blue" )
+        drawSwoop( tablePaper, startSelectionBounds, endSelectionBounds, "orange", "orange" )
     }
 
 }
@@ -466,9 +471,11 @@ CoordCommand = function( command, x,y )
     return pathString
 };
 
-onResize()
-//drawSwoop(tablePaper)
+populateTable(8,8)
 
+onResize()
+
+createRedDots(8,8)
 
 
 </script>
