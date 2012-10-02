@@ -61,8 +61,8 @@ body {
 <div id="paperContainer"></div>
 
 <div id="mainTable"><table class="mainTable" border=0>
-<tr>
-</tr>
+<tbody>
+</tbody>
 </table>
 </div>
 
@@ -123,20 +123,30 @@ updateRedDots = function( rows, columns )
     for ( column=1; column<=columns; column++ )
     {
         reddot = $("#reddotColumn"+column)
-        cell = getMainTableElement(2,column)
+        cell = getMainTableElement(1,column)
         columnOffset = cell.offset().left
         dotOffset = columnOffset - halfDotWidth
         reddot.offset({left: dotOffset, top:top})
     }
+
+
+    for ( row=1; row<=rows; row++ )
+    {
+        reddot = $("#reddotRow"+row)
+        cell = getMainTableElement(row,1)
+        rowOffset = cell.offset().top
+        dotOffset = rowOffset - halfDotWidth
+        reddot.offset({top: dotOffset})
+    }
+
 }
 
-createRedDots = function( rows, columns )
+createColumnRedDots = function(rows,columns)
 {
     halfDotWidth = $("#reddot").width() / 2
 
-    for ( column=1; column<=columns; column++ )
+    for ( column=2; column<=columns; column++ )
     {
-        top = $("#reddot").offset().top
         clone = $("#reddot").clone().insertAfter("#reddot")
         clone.attr( "id", "reddotColumn" + column )
         
@@ -147,34 +157,92 @@ createRedDots = function( rows, columns )
         clone.draggable({ axis: "x" });
 
         onDrag = function(columnIndex, reddot)
+        {
+            return function(event, ui)
             {
-                return function(event, ui)
+                for ( row=1; row<=rows; row++ )
                 {
-                    for ( row=2; row<2+rows; row++ )
-                    {
-                        prevCell=getMainTableElement(row,columnIndex-1)
-                        prevColumnOffset = prevCell.offset().left
-                        prevCellRight = prevColumnOffset + prevCell.width()
+                    prevCell=getMainTableElement(row,columnIndex-1)
+                    prevColumnOffset = prevCell.offset().left
+                    prevCellRight = prevColumnOffset + prevCell.width()
 
-                        currCell=getMainTableElement(row,columnIndex)
-                        currCellOffset = currCell.offset().left
-                        gapBetweenCells = currCellOffset - prevCellRight
+                    currCell=getMainTableElement(row,columnIndex)
+                    currCellOffset = currCell.offset().left
+                    gapBetweenCells = currCellOffset - prevCellRight
 
-                        dotOffset = reddot.offset().left
-                        columnOffset = dotOffset + halfDotWidth
-                        desiredWidth = columnOffset - prevColumnOffset - gapBetweenCells
-                        //console.log(gapBetweenCells)
-                        prevCell.width(desiredWidth)    
-                    }
-
-                    updateRedDots(rows,columns)
-
+                    dotOffset = reddot.offset().left
+                    columnOffset = dotOffset + halfDotWidth
+                    desiredWidth = columnOffset - prevColumnOffset - gapBetweenCells
+                    //console.log(gapBetweenCells)
+                    prevCell.width(desiredWidth)    
                 }
+
+                updateRedDots(rows,columns)
+
             }
+        }
 
         clone.bind("drag", 
             onDrag(column, clone)
+        )
+
+        onFinishedDragging = function(event,ui)
+        {
+            updateRedDots(rows,columns)
+            onResize()
+        }
+
+        clone.bind("dragstop", 
+            onFinishedDragging
             )
+
+    }
+}
+
+createRowRedDots = function(rows,columns)
+{
+    halfDotWidth = $("#reddot").width() / 2
+
+    for ( row=2; row<=rows; row++ )
+    {
+        clone = $("#reddot").clone().insertAfter("#reddot")
+        clone.attr( "id", "reddotRow" + row )
+        
+        cell = getMainTableElement(row,1)
+        rowOffset = cell.offset().top
+        dotOffset = rowOffset - halfDotWidth
+        clone.offset({top: dotOffset})
+        clone.draggable({ axis: "y" });
+    
+        onDrag = function(rowIndex, reddot)
+        {
+            return function(event, ui)
+            {
+                for ( column=1; column<=columns; column++ )
+                {
+                    prevCell=getMainTableElement(rowIndex-1,column)
+                    prevColumnOffset = prevCell.offset().top
+                    prevCellBottom = prevColumnOffset + prevCell.height()
+
+                    currCell=getMainTableElement(rowIndex,column)
+                    currCellOffset = currCell.offset().top
+                    gapBetweenCells = currCellOffset - prevCellBottom
+
+                    dotOffset = reddot.offset().top
+                    columnOffset = dotOffset + halfDotWidth
+                    desiredHeight = columnOffset - prevColumnOffset - gapBetweenCells
+                    //console.log(gapBetweenCells)
+                    prevCell.height(desiredHeight)    
+                }
+
+                updateRedDots(rows,columns)
+
+            }
+        }
+
+        clone.bind("drag", 
+            onDrag(row, clone)
+        )
 
         onFinishedDragging = function(event,ui)
         {
@@ -189,6 +257,12 @@ createRedDots = function( rows, columns )
     }
 
 
+}
+
+createRedDots = function( rows, columns )
+{
+    createColumnRedDots(rows,columns)
+    createRowRedDots(rows,columns)
     $("#reddot").remove()
 }
 
@@ -207,7 +281,11 @@ populateTable = function( rows, columns )
 
     }
 
-    $('#mainTable tr:last').after(html);
+    //$('#mainTable tr:last').after(html);
+
+    $('#mainTable tbody').append(html);
+
+    //$('#maintable tr:nth-child(1)').remove()
 }
 
 
@@ -255,7 +333,7 @@ onResize = function()
     tableY = mainTableBounds.top;
     tablePaper.setSize(tableWidth, tableHeight);
 
-    titleCell = getMainTableElement(3,6)
+    titleCell = getMainTableElement(1,6)
     titleCell.html("TITLE")
     titleCell.addClass("BigTitle")
     titleCell.css( "height", "30px" )
@@ -269,7 +347,7 @@ onResize = function()
         offset(startSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
-        endSelection = $("#mainTable tr:nth-child(3) td:nth-child(5)")
+        endSelection = $("#mainTable tr:nth-child(1) td:nth-child(5)")
         //endSelection = endSelection.add( "#mainTable tr:nth-child(4) td:nth-child(8)" )
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
@@ -315,7 +393,7 @@ onResize = function()
         offset(startSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( startSelectionBounds, tablePaper )
 
-        endSelection = $("#mainTable tr:nth-child(3) td:nth-child(7)")
+        endSelection = $("#mainTable tr:nth-child(1) td:nth-child(7)")
         endSelectionBounds = endSelection.bounds()
         offset(endSelectionBounds, -tableX, -tableY)
         if ( showTDOutlines ) drawHighlight( endSelectionBounds, tablePaper )
