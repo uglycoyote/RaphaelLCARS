@@ -1,0 +1,17 @@
+
+<html>
+<script src="raphael.js"></script>
+<script src="jquery.js"></script>
+<script src="LCARS_400.font.js"></script>
+
+<body>
+	<div class="textSample"/>
+</body>
+
+<script>
+var paper = Raphael(0,0, 600, 100);
+
+var letters = paper.print(50, 50, "LCARS is the bomb", paper.getFont("LCARS"), 20);
+
+</script>
+</html>
